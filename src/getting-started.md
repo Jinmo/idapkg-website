@@ -57,15 +57,30 @@ My Plugin
 Awesome description here.
 ```
 
+## Testing the package
+
+Place your package folder under `idapkg/packages` or `"path" > "packages"` entry on config.json, then the package will be loaded after restarting IDA or executing `pkg.refresh()`.
+
+Alternatively, you can execute `pkg.local("package name or path").load()`.
+
+### Debugging the installer
+
+Installer scripts are executed first time, and raise exception if fails.
+
+```
+p = pkg.local("name or path")
+p.install()
+```
+
 ## Uploading the package
 
 [Finally, you can make a zip of the directory and upload your package at /upload](/upload). The package can be managed via the repo.
 
-# details on `info.json`
+# Optional fields on `info.json`
 
 \_id (actual path), name, version, description are needed.
 
-## installers: Installation scripts (optional)
+## installers: Installation scripts
 
 ```javascript
 "installers": [
@@ -102,9 +117,9 @@ assert not os.system('pip install -r requirements.txt')
 - `env.version`: python Decimal object for IDA Pro's version (ex. `Decimal(6.95)`)
 - `env.version_info`: namedtuple with version details (ex. `VersionPair(major=7, minor=0, micro=171130)`)
 
-For `pkg.*` references, see [API docs](/not-yet).
+For `pkg.*` references, see [API docs](https://idapkg.rtfd.io/).
 
-## dependencies: Dependencies between packages (optional)
+## dependencies: Dependencies between packages
 
 A package can have dependency list. The loading order is also sorted regarding to dependencies.
 
@@ -114,7 +129,15 @@ A package can have dependency list. The loading order is also sorted regarding t
 }
 ```
 
-## homepage: Your project homepage (optional)
+## keywords: Package keywords
+
+Array of words that represents your package. Note that `procs`, `plugins`, and some words are automatically added depending on the content.
+
+```javascript
+"keywords": ["theme"]
+```
+
+## homepage: Your project homepage
 
 Add website to package information page.
 

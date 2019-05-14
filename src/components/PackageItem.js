@@ -5,10 +5,7 @@ import gravatar from 'gravatar';
 
 export default class PackageItem extends Component {
   render() {
-    const { id, name, version, description, author, compat_win, compat_mac, compat_linux } = this.props;
-    const compats = [['windows', compat_win],
-    ['apple', compat_mac],
-    ['linux', compat_linux]];
+    const { id, name, version, description, author, keywords } = this.props;
     return (
       <List.Item className="package-item item">
         <Link className="package-name ui header" to={`/p/${encodeURIComponent(id)}`}>
@@ -29,8 +26,8 @@ export default class PackageItem extends Component {
             {version}
           </span>
           <span>
-            {compats.filter(compat => compat[1]).map(compat => (
-              <span className="ui label" key={compat[0]}>{compat[0]}</span>
+            {keywords.map(keyword => (
+              <span className="ui label" key={keyword}>{keyword}</span>
             ))}
           </span>
         </p>
